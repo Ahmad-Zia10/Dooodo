@@ -49,6 +49,12 @@ Archivo variable font (weight and width axes), self-hosted via `next/font`.
 - **Definition blocks**: a 3px ink top rule with `.h-sub` term and body. Use these instead of cards.
 - **Closing band**: an ink section with a display headline and an inverse button.
 - **Footer**: ink, with a saffron and cobalt double rail on top.
+- **Trains**: ink capsules with lit windows that run along the hero network lines (SVG `animateMotion`). Not rendered when reduced motion is on.
+- **Line status** (`LineStatus`): a transit-style service status strip ("Accepting new projects") under the hero.
+- **Route planner** (`RoutePlanner`): visitors pick a starting problem and see a route: coloured legs by line, interchange capsules, "change here" notes and an "Arrive" terminus with the metric. Its call to action links to `/contact?route=<id>`, which prefills the form. Content lives in `src/content/routes.ts`.
+- **One-network argument** (`OneNetworkArgument`): a side-by-side diagram contrasting two vendors with a hand-over gap against one shared track.
+- **Departure board** (`DepartureBoard`): engagement models on a dark board with amber names that split-flap into place once when scrolled into view. Board type is data, so uppercase tracking is allowed here.
+- **Owner's note** (`NoteOnBeingNew`): a large-type letter that addresses being a new company directly.
 
 ## Layout and spacing
 

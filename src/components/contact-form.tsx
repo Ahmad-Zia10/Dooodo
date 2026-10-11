@@ -1,6 +1,8 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import { useState, type FormEvent } from "react";
+import { routes } from "@/content/routes";
 import { interests } from "@/lib/contact-schema";
 import { Arrow } from "./ui";
 
@@ -9,7 +11,32 @@ type Status = "idle" | "sending" | "sent" | "error";
 const field =
   "mt-2 block w-full rounded-[6px] border border-ink/30 bg-surface px-4 py-3 text-[1rem] text-ink placeholder:text-ink-3 transition-colors hover:border-ink/60 focus:border-ink focus:outline-none focus-visible:outline-2 focus-visible:outline-erp aria-[invalid=true]:border-[#b42318]";
 
-export function ContactForm() {
+/** Reads ?route= from the route planner and prefills the form. */
+export function PrefilledContactForm() {
+  const params = useSearchParams();
+  const route = routes.find((r) => r.id === params.get("route"));
+  if (!route) return <ContactForm />;
+  return (
+    <ContactForm
+      key={route.id}
+      routeLabel={route.problem}
+      initialInterest={route.interest}
+      initialMessage={`Starting point: ${route.problem}.
+
+A little about our situation: `}
+    />
+  );
+}
+
+export function ContactForm({
+  initialInterest = "Both",
+  initialMessage = "",
+  routeLabel,
+}: {
+  initialInterest?: (typeof interests)[number];
+  initialMessage?: string;
+  routeLabel?: string;
+}) {
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [formError, setFormError] = useState("");
@@ -79,6 +106,15 @@ export function ContactForm() {
 
   return (
     <form onSubmit={onSubmit} noValidate className="grid gap-6 sm:grid-cols-2">
+      {routeLabel && (
+        <p className="flex items-center gap-3 rounded-[8px] border border-ink bg-paper px-4 py-3 text-[0.95rem] sm:col-span-2">
+          <span aria-hidden="true" className="h-[18px] w-[26px] shrink-0 rounded-full border-[3px] border-ink bg-surface" />
+          <span>
+            Planning a route from <strong className="font-semibold">{routeLabel.toLowerCase()}</strong>. Add
+            anything that helps us understand your systems.
+          </span>
+        </p>
+      )}
       <div>
         <label htmlFor="name" className="font-semibold">Name</label>
         <input id="name" name="name" autoComplete="name" required className={field} {...a11y("name")} />
@@ -99,13 +135,13 @@ export function ContactForm() {
       <fieldset>
         <legend className="font-semibold">Interested in</legend>
         <div className="mt-2 flex flex-wrap gap-2" {...a11y("interest")}>
-          {interests.map((opt, i) => (
+          {interests.map((opt) => (
             <label key={opt} className="relative">
               <input
                 type="radio"
                 name="interest"
                 value={opt}
-                defaultChecked={i === 2}
+                defaultChecked={opt === initialInterest}
                 className="peer absolute inset-0 cursor-pointer opacity-0"
               />
               <span className="inline-flex min-h-11 items-center rounded-full border border-ink/30 bg-surface px-4 text-[0.95rem] font-medium transition-colors peer-hover:border-ink peer-checked:border-ink peer-checked:bg-ink peer-checked:text-white peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-erp">
@@ -123,6 +159,7 @@ export function ContactForm() {
           name="message"
           rows={6}
           required
+          defaultValue={initialMessage}
           placeholder="For example: our accounts payable team matches around 2,000 invoices a month by hand against Oracle purchase orders."
           className={`${field} resize-y`}
           {...a11y("message")}

@@ -220,3 +220,53 @@ body {
     transform: scaleY(0);
   }
 }
+
+/* ---------- Trains ---------- */
+.trains {
+  opacity: 0;
+  animation: stop-in 0.8s ease 1.7s forwards;
+}
+
+/* ---------- Route planner ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .route-leg {
+    opacity: 0;
+    transform: translateY(8px);
+    animation: leg-in 0.6s var(--ease-out-expo) forwards;
+    animation-delay: var(--d, 0ms);
+  }
+  .route-seg {
+    transform-origin: top;
+    transform: scaleY(0);
+    animation: seg-grow 0.5s var(--ease-out-expo) forwards;
+    animation-delay: calc(var(--d, 0ms) + 120ms);
+  }
+}
+@keyframes leg-in {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes seg-grow {
+  to {
+    transform: scaleY(1);
+  }
+}
+
+/* ---------- Departure board & status ---------- */
+.board-text {
+  font-weight: 620;
+  font-stretch: 90%;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .board-pulse {
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}

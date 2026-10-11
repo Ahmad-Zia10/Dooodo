@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { ContactForm } from "@/components/contact-form";
+import { Suspense } from "react";
+import { ContactForm, PrefilledContactForm } from "@/components/contact-form";
 import { Container, Rail } from "@/components/ui";
 import { site } from "@/content/site";
 
@@ -55,7 +56,9 @@ export default function ContactPage() {
           </div>
 
           <div className="lg:col-span-7">
-            <ContactForm />
+            <Suspense fallback={<ContactForm />}>
+              <PrefilledContactForm />
+            </Suspense>
           </div>
         </Container>
       </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { aiLine, erpLine, interchanges } from "@/content/services";
 import { LineBullet } from "./line-bullet";
 
@@ -65,7 +65,43 @@ const shortName: Record<string, string> = {
 
 const allStops = [...aiStops, ...ixStops, ...erpStops];
 
+const reducedQuery = "(prefers-reduced-motion: reduce)";
+function useReducedMotion() {
+  return useSyncExternalStore(
+    (cb) => {
+      const mq = window.matchMedia(reducedQuery);
+      mq.addEventListener("change", cb);
+      return () => mq.removeEventListener("change", cb);
+    },
+    () => window.matchMedia(reducedQuery).matches,
+    () => true,
+  );
+}
+
+/** A train: an ink capsule with lit windows, travelling the line. */
+function Train({ path, dur, begin, reverse = false }: { path: string; dur: number; begin: number; reverse?: boolean }) {
+  return (
+    <g className="train" aria-hidden="true">
+      <rect x="-17" y="-7" width="34" height="14" rx="7" className="fill-ink" />
+      <rect x="-10" y="-2.5" width="6" height="5" rx="1.5" fill="#fff" />
+      <rect x="-1" y="-2.5" width="6" height="5" rx="1.5" fill="#fff" />
+      <rect x="8" y="-2.5" width="4" height="5" rx="1.5" className="fill-ai" />
+      <animateMotion
+        path={path}
+        dur={`${dur}s`}
+        begin={`${begin}s`}
+        repeatCount="indefinite"
+        rotate="auto"
+        keyPoints={reverse ? "1;0" : "0;1"}
+        keyTimes="0;1"
+        calcMode="linear"
+      />
+    </g>
+  );
+}
+
 export function NetworkMap() {
+  const reduced = useReducedMotion();
   const [active, setActive] = useState<Stop | null>(null);
   const shown = active ?? null;
 
@@ -87,6 +123,16 @@ export function NetworkMap() {
         {/* Lines */}
         <path d={aiPath} className="net-line stroke-ai" pathLength={1} />
         <path d={erpPath} className="net-line stroke-erp" pathLength={1} style={{ animationDelay: "120ms" }} />
+
+        {/* Trains: the network is running */}
+        {!reduced && (
+          <g className="trains">
+            <Train path={aiPath} dur={16} begin={-3} />
+            <Train path={aiPath} dur={19} begin={-11} reverse />
+            <Train path={erpPath} dur={18} begin={-6} />
+            <Train path={erpPath} dur={21} begin={-15} reverse />
+          </g>
+        )}
 
         {/* Terminus bullets */}
         <g aria-hidden="true">

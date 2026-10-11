@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { LineBullet, LineBullets } from "@/components/line-bullet";
+import { DepartureBoard } from "@/components/departure-board";
+import { LineStatus, NoteOnBeingNew, OneNetworkArgument } from "@/components/home-sections";
+import { LineBullet } from "@/components/line-bullet";
 import { NetworkMap } from "@/components/network-map";
+import { RoutePlanner } from "@/components/route-planner";
 import { CompactNetwork } from "@/components/strip-map";
 import { TimeZones } from "@/components/time-zones";
 import { ButtonLink, Container, Section, TextLink } from "@/components/ui";
-import { principles, stages } from "@/content/approach";
+import { principles } from "@/content/approach";
 import { industries } from "@/content/industries";
 import { aiLine, erpLine, interchanges, type Line } from "@/content/services";
 
@@ -16,8 +19,8 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      {/* Hero */}
-      <section className="border-b border-rule bg-surface">
+      {/* Hero: the network, running */}
+      <section className="bg-surface">
         <Container className="pt-14 sm:pt-20 lg:pt-24">
           <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
             <h1 className="display text-[clamp(2.75rem,6.6vw,5.6rem)] lg:col-span-8">
@@ -25,20 +28,21 @@ export default function Home() {
             </h1>
             <div className="lg:col-span-4 lg:pb-2">
               <p className="lede">
-                We implement the systems your business runs on, then build the agents and automation that make
-                them run better. One partner, accountable for both.
+                Most companies hire one firm for Oracle and another for AI, then lose months in the gap between
+                them. We are both: one team that configures the ledger, builds the agents, and answers for the
+                result.
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
-                <ButtonLink href="/contact">Start a conversation</ButtonLink>
-                <TextLink href="/approach">How we work</TextLink>
+                <ButtonLink href="#plan">Plan your route</ButtonLink>
+                <TextLink href="/contact">Talk to us</TextLink>
               </div>
             </div>
           </div>
 
-          <div className="mt-12 hidden pb-10 md:block lg:mt-8">
+          <div className="mt-12 hidden md:block lg:mt-6">
             <NetworkMap />
           </div>
-          <div className="mt-12 pb-12 md:hidden">
+          <div className="mt-12 pb-10 md:hidden">
             <CompactNetwork
               groups={[
                 { label: "AI line", on: ["ai"], stations: aiLine.stations.map((s) => s.name) },
@@ -48,76 +52,79 @@ export default function Home() {
             />
           </div>
         </Container>
+        <Container className="pb-14 pt-6 sm:pb-16">
+          <h2 className="sr-only">Service status</h2>
+          <LineStatus />
+        </Container>
+      </section>
+
+      {/* The argument */}
+      <section id="why-one-network" className="scroll-mt-20 border-t border-rule py-20 sm:py-28">
+        <Container>
+          <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
+            <h2 className="h-section lg:col-span-6">Most projects don&rsquo;t fail in the build. They stall at the hand-over.</h2>
+            <p className="lede lg:col-span-5 lg:col-start-8">
+              AI needs clean ERP data, correct permissions and someone who understands how the books are configured.
+              When those sit with a different vendor, every question becomes a ticket. We removed the gap.
+            </p>
+          </div>
+          <div className="mt-14">
+            <OneNetworkArgument />
+          </div>
+        </Container>
+      </section>
+
+      {/* Route planner */}
+      <section id="plan" className="scroll-mt-20 border-y border-rule bg-[#e9ebee] py-20 sm:py-28">
+        <Container>
+          <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
+            <h2 className="display text-[clamp(2.4rem,5vw,4.2rem)] lg:col-span-7">Plan your route.</h2>
+            <p className="lede lg:col-span-5">
+              Pick the problem closest to yours. We&rsquo;ll show you the stations we&rsquo;d call at, where the
+              lines change, and how we&rsquo;d know we had arrived.
+            </p>
+          </div>
+          <div className="mt-14">
+            <RoutePlanner />
+          </div>
+        </Container>
       </section>
 
       {/* The two lines */}
       <Section>
-        <h2 className="h-section max-w-[20ch]">Two practices, each complete on its own.</h2>
-        <p className="lede mt-5">
-          Buy either line by itself. Most clients start with one, and the value grows where the two connect.
-        </p>
+        <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
+          <h2 className="h-section lg:col-span-6">Two practices, each complete on its own.</h2>
+          <p className="lede lg:col-span-5 lg:col-start-8">
+            Buy either line by itself. Most clients start with one; the value compounds where they connect.
+          </p>
+        </div>
         <div className="mt-14 grid gap-14 lg:grid-cols-2 lg:gap-0">
           <LineSummary line={erpLine} className="lg:border-r lg:border-rule lg:pr-14" />
           <LineSummary line={aiLine} className="lg:pl-14" />
         </div>
       </Section>
 
-      {/* Interchanges */}
-      <section id="interchanges" className="scroll-mt-20 border-y border-rule bg-surface py-20 sm:py-28">
-        <Container>
-          <div className="grid gap-10 lg:grid-cols-12">
-            <div className="lg:col-span-5">
-              <div aria-hidden="true" className="mb-8 flex items-center">
-                <span className="h-[9px] w-16 bg-ai" />
-                <span className="-mx-1 h-9 w-14 rounded-full border-[3.5px] border-ink bg-surface" />
-                <span className="h-[9px] w-16 bg-erp" />
-              </div>
-              <h2 className="h-section">Where the lines meet.</h2>
-              <p className="lede mt-5">
-                Most AI projects stall at the system of record. Ours start there: we know how the ledger, the
-                approvals and the roles are configured, because configuring them is half of what we do.
-              </p>
+      {/* Ways to work */}
+      <Section tone="surface" className="border-y border-rule">
+        <div className="grid gap-12 lg:grid-cols-12">
+          <div className="lg:col-span-4">
+            <h2 className="h-section">Start small. Expand when it&rsquo;s earned.</h2>
+            <p className="lede mt-5">
+              Every engagement has a written scope, a named owner and a metric agreed up front. Most begin with a
+              fixed-price discovery sprint.
+            </p>
+            <div className="mt-8">
+              <TextLink href="/approach">How engagements run</TextLink>
             </div>
-            <ul className="divide-y divide-rule border-y border-rule lg:col-span-6 lg:col-start-7">
-              {interchanges.map((ix) => (
-                <li key={ix.id} className="grid gap-3 py-7 sm:grid-cols-[auto_1fr] sm:gap-6">
-                  <LineBullets lines={["ai", "erp"]} size="md" />
-                  <div>
-                    <h3 className="h-sub">{ix.name}</h3>
-                    <p className="prose-body mt-2">{ix.summary}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
           </div>
-        </Container>
-      </section>
-
-      {/* How an engagement runs */}
-      <Section>
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <h2 className="h-section max-w-[18ch]">Four stages, with something working early.</h2>
-          <TextLink href="/approach">Engagement models and security</TextLink>
+          <div className="min-w-0 lg:col-span-8">
+            <DepartureBoard />
+          </div>
         </div>
-        <ol className="relative mt-16 grid gap-10 md:grid-cols-4 md:gap-8">
-          <span aria-hidden="true" className="absolute left-[11px] top-3 bottom-3 w-[8px] rounded-full bg-ink md:inset-x-3 md:bottom-auto md:left-3 md:top-[11px] md:h-[8px] md:w-auto" />
-          {stages.map((s, i) => (
-            <li key={s.id} className="relative pl-14 md:pl-0 md:pt-16">
-              <span
-                aria-hidden="true"
-                className="absolute left-0 top-0 grid size-[30px] place-items-center rounded-full border-[3.5px] border-ink bg-paper text-[0.75rem] font-bold tabular-nums md:left-0"
-              >
-                {i + 1}
-              </span>
-              <h3 className="h-sub">{s.name}</h3>
-              <p className="prose-body mt-2">{s.short}</p>
-            </li>
-          ))}
-        </ol>
       </Section>
 
       {/* Principles */}
-      <Section tone="surface" className="border-y border-rule">
+      <Section>
         <div className="grid gap-12 lg:grid-cols-12">
           <h2 className="h-section lg:col-span-4">Built for production, not for the demo.</h2>
           <dl className="grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:col-span-8">
@@ -131,14 +138,18 @@ export default function Home() {
         </div>
       </Section>
 
+      {/* Owner's note */}
+      <Section tone="surface" className="border-y border-rule">
+        <NoteOnBeingNew />
+      </Section>
+
       {/* Global delivery */}
       <Section>
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <h2 className="h-section">Based in Delhi NCR. Working in your hours.</h2>
             <p className="lede mt-5">
-              We plan collaboration around your working day from the first week, not after the first missed
-              call.
+              We plan collaboration around your working day from the first week, not after the first missed call.
             </p>
           </div>
           <div className="lg:col-span-8">
@@ -169,21 +180,28 @@ export default function Home() {
       </Section>
 
       {/* Close */}
-      <section className="bg-ink text-white">
-        <Container className="grid gap-10 py-20 sm:py-28 lg:grid-cols-12 lg:items-end">
+      <section className="relative overflow-hidden bg-ink text-white">
+        <div aria-hidden="true" className="absolute inset-x-0 top-0 flex flex-col gap-[3px]">
+          <span className="h-[5px] bg-ai" />
+          <span className="h-[5px] bg-erp-bright" />
+        </div>
+        <Container className="grid gap-10 py-24 sm:py-32 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-8">
-            <h2 className="display text-[clamp(2.3rem,5vw,4.2rem)]">
+            <h2 className="display text-[clamp(2.4rem,5.4vw,4.6rem)]">
               Tell us the one process that eats your team&rsquo;s week.
             </h2>
-            <p className="mt-6 max-w-[56ch] text-[1.1rem] leading-relaxed text-white/75">
+            <p className="mt-6 max-w-[56ch] text-[1.12rem] leading-relaxed text-white/75">
               We&rsquo;ll tell you honestly whether AI, better ERP configuration or neither is the answer. A
               consultant replies within one working day.
             </p>
           </div>
-          <div className="lg:col-span-4 lg:justify-self-end">
+          <div className="flex flex-col items-start gap-4 lg:col-span-4 lg:items-end">
             <ButtonLink href="/contact" variant="inverse">
               Start a conversation
             </ButtonLink>
+            <a href="#plan" className="text-[0.95rem] text-white/70 underline underline-offset-4 hover:text-white">
+              or plan your route first
+            </a>
           </div>
         </Container>
       </section>
@@ -208,7 +226,7 @@ function LineSummary({ line, className = "" }: { line: Line; className?: string 
             >
               <span
                 aria-hidden="true"
-                className={`size-3 shrink-0 rounded-full border-[2.5px] border-ink bg-surface transition-colors group-hover:bg-ink`}
+                className="size-3 shrink-0 rounded-full border-[2.5px] border-ink bg-surface transition-colors group-hover:bg-ink"
               />
               {s.name}
             </Link>
