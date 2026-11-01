@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import { Photo, PhotoBand } from "@/components/photo";
 import { CloseBand } from "@/components/service-line-page";
 import { StripMap } from "@/components/strip-map";
 import { PageHeader, Section } from "@/components/ui";
 import { engagementModels, principles, security, stages } from "@/content/approach";
+import { photos } from "@/content/photos";
 
 export const metadata: Metadata = {
   title: "Approach",
@@ -19,6 +21,7 @@ export default function ApproachPage() {
         lede="Four stages with clear owners and written outputs, and something working in front of you early. Here is how an engagement runs, how you can buy it, and how we treat your data."
         rail="ink"
       />
+      <PhotoBand photo={photos.approach} />
 
       <Section>
         <h2 className="h-section max-w-[18ch]">The four stages.</h2>
@@ -77,6 +80,7 @@ export default function ApproachPage() {
             <p className="lede mt-5">
               The commitments we make before we see any of your systems.
             </p>
+            <Photo photo={photos.security} caption={false} ratio="aspect-[4/3]" sizes="(min-width: 1024px) 380px, 100vw" className="mt-10" />
           </div>
           <dl className="grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:col-span-8">
             {security.map((s) => (

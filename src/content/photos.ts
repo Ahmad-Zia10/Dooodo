@@ -46,6 +46,24 @@ export const photos = {
     caption: "Hybrid working from Delhi NCR",
     lines: ["ai", "erp"],
   },
+  approach: {
+    src: u("photo-1531403009284-440f080d1e12"),
+    alt: "A hand connecting printed process screens with lines on a planning wall",
+    caption: "Every engagement mapped stage by stage, in writing",
+    lines: ["ai", "erp"],
+  },
+  security: {
+    src: u("photo-1633265486064-086b219458ec"),
+    alt: "A brass padlock resting on a computer keyboard",
+    caption: "Least-privilege access, in your tenancy",
+    lines: ["ai", "erp"],
+  },
+  meeting: {
+    src: u("photo-1431540015161-0bf868a2d407"),
+    alt: "An empty conference room with a long table and floor-to-ceiling windows",
+    caption: "Workshops remote or on site",
+    lines: ["ai", "erp"],
+  },
 } satisfies Record<string, Photo>;
 
 /** One photo per industry, keyed by the ids in industries.ts. */

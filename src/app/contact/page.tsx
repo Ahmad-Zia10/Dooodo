@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { ContactForm, PrefilledContactForm } from "@/components/contact-form";
+import { Photo } from "@/components/photo";
 import { Container, Rail } from "@/components/ui";
+import { photos } from "@/content/photos";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -53,12 +55,15 @@ export default function ContactPage() {
                 <dd className="text-ink-2">{site.coreHours}. Calls outside these hours by arrangement.</dd>
               </div>
             </dl>
+
+            <Photo photo={photos.meeting} ratio="aspect-[4/3]" sizes="(min-width: 1024px) 460px, 100vw" className="mt-10 hidden lg:block" />
           </div>
 
           <div className="lg:col-span-7">
             <Suspense fallback={<ContactForm />}>
               <PrefilledContactForm />
             </Suspense>
+            <Photo photo={photos.meeting} caption={false} ratio="aspect-[4/3]" sizes="100vw" className="mt-14 lg:hidden" />
           </div>
         </Container>
       </div>
