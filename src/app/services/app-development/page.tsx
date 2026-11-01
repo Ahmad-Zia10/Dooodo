@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { CloseBand } from "@/components/service-line-page";
+import { PhotoBand } from "@/components/photo";
 import { StripMap } from "@/components/strip-map";
 import { PageHeader, Section } from "@/components/ui";
+import { photos } from "@/content/photos";
 
 export const metadata: Metadata = {
   title: "Custom application development",
@@ -46,6 +48,7 @@ export default function AppDevelopmentPage() {
         lede="Web and mobile products with AI in the core, built by engineers who also understand the back-office systems those products need to talk to."
         rail="ai"
       />
+      <PhotoBand photo={photos.apps} />
       <Section>
         <StripMap line="ai" items={offers.map((o) => ({ id: o.id, title: o.title, body: <p>{o.body}</p> }))} />
       </Section>

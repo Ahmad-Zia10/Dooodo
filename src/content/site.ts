@@ -7,12 +7,12 @@ export const site = {
   // TODO(owner): confirm exact registered legal name.
   legalName: "Nanhi AI Mindforge Private Limited",
   // TODO(owner): replace with the production domain.
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://nanhimindforge.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://nanhiai.com",
   description:
     "Nanhi AI Mindforge is a technology consultancy that implements Oracle ERP and builds AI agents, automation and copilots on top of it. Headquartered in Delhi NCR, working with clients worldwide.",
-  // TODO(owner): confirm inboxes.
-  email: "hello@nanhimindforge.com",
-  careersEmail: "careers@nanhimindforge.com",
+  // Company inbox, confirmed by the owner.
+  email: "info@nanhiai.com",
+  careersEmail: "info@nanhiai.com", // one inbox for now; switch to careers@ if you add one
   address: {
     // TODO(owner): registered street address.
     street: "Registered office address to be confirmed",

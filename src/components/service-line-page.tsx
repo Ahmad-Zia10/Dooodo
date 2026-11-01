@@ -1,6 +1,8 @@
 import type { ReactNode } from "react";
 import { interchanges, type Line } from "@/content/services";
+import type { Photo as PhotoData } from "@/content/photos";
 import { LineBullet, LineBullets } from "./line-bullet";
+import { PhotoBand } from "./photo";
 import { StripMap } from "./strip-map";
 import { ButtonLink, Container, PageHeader, Section, TextLink } from "./ui";
 
@@ -10,12 +12,14 @@ export function ServiceLinePage({
   lede,
   intro,
   extra,
+  photo,
 }: {
   line: Line;
   title: string;
   lede: string;
   intro: ReactNode;
   extra?: ReactNode;
+  photo?: PhotoData;
 }) {
   const other = line.id === "ai" ? { href: "/services/oracle-erp", name: "Oracle ERP", id: "erp" as const } : { href: "/services/ai", name: "AI", id: "ai" as const };
   return (
@@ -46,6 +50,8 @@ export function ServiceLinePage({
           </span>
         </div>
       </PageHeader>
+
+      {photo && <PhotoBand photo={photo} />}
 
       <Section>
         <div className="grid gap-10 lg:grid-cols-12">

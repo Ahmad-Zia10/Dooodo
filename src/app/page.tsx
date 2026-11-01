@@ -3,6 +3,7 @@ import Link from "next/link";
 import { DepartureBoard } from "@/components/departure-board";
 import { LineStatus, NoteOnBeingNew, OneNetworkArgument } from "@/components/home-sections";
 import { LineBullet } from "@/components/line-bullet";
+import { Photo } from "@/components/photo";
 import { NetworkMap } from "@/components/network-map";
 import { RoutePlanner } from "@/components/route-planner";
 import { CompactNetwork } from "@/components/strip-map";
@@ -10,7 +11,9 @@ import { TimeZones } from "@/components/time-zones";
 import { ButtonLink, Container, Section, TextLink } from "@/components/ui";
 import { principles } from "@/content/approach";
 import { industries } from "@/content/industries";
+import { industryPhotos, photos } from "@/content/photos";
 import { aiLine, erpLine, interchanges, type Line } from "@/content/services";
+import type { Photo as PhotoData } from "@/content/photos";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -99,8 +102,8 @@ export default function Home() {
           </p>
         </div>
         <div className="mt-14 grid gap-14 lg:grid-cols-2 lg:gap-0">
-          <LineSummary line={erpLine} className="lg:border-r lg:border-rule lg:pr-14" />
-          <LineSummary line={aiLine} className="lg:pl-14" />
+          <LineSummary line={erpLine} photo={photos.erp} className="lg:border-r lg:border-rule lg:pr-14" />
+          <LineSummary line={aiLine} photo={photos.ai} className="lg:pl-14" />
         </div>
       </Section>
 
@@ -151,6 +154,7 @@ export default function Home() {
             <p className="lede mt-5">
               We plan collaboration around your working day from the first week, not after the first missed call.
             </p>
+            <Photo photo={photos.delhi} caption={false} ratio="aspect-[4/3]" sizes="(min-width: 1024px) 380px, 100vw" className="mt-10" />
           </div>
           <div className="lg:col-span-8">
             <TimeZones />
@@ -171,6 +175,14 @@ export default function Home() {
                 href={`/industries#${ind.id}`}
                 className="group flex h-full min-h-28 flex-col gap-3 p-5 transition-colors hover:bg-paper"
               >
+                <Photo
+                  photo={{ ...industryPhotos[ind.id], caption: ind.name, lines: ["ai", "erp"] }}
+                  caption={false}
+                  ratio="aspect-[3/2]"
+                  sizes="(min-width: 1024px) 280px, (min-width: 640px) 50vw, 100vw"
+                  className="mb-2"
+                  imgClassName="transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                />
                 <span className="text-[1.08rem] font-semibold leading-snug">{ind.name}</span>
                 <span className="text-[0.93rem] leading-snug text-ink-3">{ind.context}</span>
               </Link>
@@ -209,9 +221,10 @@ export default function Home() {
   );
 }
 
-function LineSummary({ line, className = "" }: { line: Line; className?: string }) {
+function LineSummary({ line, photo, className = "" }: { line: Line; photo: PhotoData; className?: string }) {
   return (
     <article className={className}>
+      <Photo photo={photo} className="mb-10" />
       <div className="flex items-center gap-4">
         <LineBullet line={line.id} size="lg" decorative />
         <h3 className="text-[1.9rem] font-bold tracking-tight [font-stretch:90%]">{line.name}</h3>

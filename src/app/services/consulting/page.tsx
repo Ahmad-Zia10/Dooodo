@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { CloseBand } from "@/components/service-line-page";
+import { PhotoBand } from "@/components/photo";
 import { StripMap } from "@/components/strip-map";
 import { PageHeader, Section } from "@/components/ui";
+import { photos } from "@/content/photos";
 
 export const metadata: Metadata = {
   title: "AI strategy and consulting",
@@ -46,6 +48,7 @@ export default function ConsultingPage() {
         lede="Strategy work with no obligation to build with us afterwards. If AI isn’t the right answer for a process, we’ll say so, and say why."
         rail="ai"
       />
+      <PhotoBand photo={photos.consulting} />
       <Section>
         <StripMap line="ai" items={offers.map((o) => ({ id: o.id, title: o.title, body: <p>{o.body}</p> }))} />
       </Section>

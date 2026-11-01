@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { LineBullet, LineBullets } from "@/components/line-bullet";
+import { Photo } from "@/components/photo";
 import { CloseBand } from "@/components/service-line-page";
 import { Container, PageHeader } from "@/components/ui";
 import { industries } from "@/content/industries";
+import { industryPhotos } from "@/content/photos";
 
 export const metadata: Metadata = {
   title: "Industries",
@@ -53,6 +55,13 @@ export default function IndustriesPage() {
                   {ind.name}
                 </h2>
                 <p className="prose-body mt-3">{ind.context}</p>
+                <Photo
+                  photo={{ ...industryPhotos[ind.id], caption: ind.name, lines: [...new Set(ind.useCases.flatMap((u) => u.lines))] }}
+                  caption={false}
+                  ratio="aspect-[3/2]"
+                  sizes="(min-width: 1024px) 380px, 100vw"
+                  className="mt-6"
+                />
               </div>
               <ul className="lg:col-span-7 lg:col-start-6">
                 {ind.useCases.map((u) => (

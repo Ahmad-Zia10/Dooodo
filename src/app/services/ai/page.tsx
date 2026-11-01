@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ServiceLinePage, ToolList } from "@/components/service-line-page";
 import { Section } from "@/components/ui";
 import { aiLine } from "@/content/services";
+import { photos } from "@/content/photos";
 
 export const metadata: Metadata = {
   title: "AI agents, automation and copilots",
@@ -14,6 +15,7 @@ export default function AiPage() {
   return (
     <ServiceLinePage
       line={aiLine}
+      photo={photos.ai}
       title="AI that does the work, inside your systems."
       lede={aiLine.promise}
       intro={

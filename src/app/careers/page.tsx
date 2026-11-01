@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { PhotoBand } from "@/components/photo";
 import { LineBullet } from "@/components/line-bullet";
 import { Container, PageHeader, Section } from "@/components/ui";
+import { photos } from "@/content/photos";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -55,6 +57,7 @@ export default function CareersPage() {
           Email {site.careersEmail}
         </a>
       </PageHeader>
+      <PhotoBand photo={photos.office} />
 
       <Section>
         <h2 className="h-section max-w-[20ch]">People we always want to hear from.</h2>

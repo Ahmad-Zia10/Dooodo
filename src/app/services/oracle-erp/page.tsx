@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ServiceLinePage, ToolList } from "@/components/service-line-page";
 import { Section } from "@/components/ui";
 import { erpLine } from "@/content/services";
+import { photos } from "@/content/photos";
 
 export const metadata: Metadata = {
   title: "Oracle ERP implementation, migration and support",
@@ -14,6 +15,7 @@ export default function OracleErpPage() {
   return (
     <ServiceLinePage
       line={erpLine}
+      photo={photos.erp}
       title="Oracle ERP, configured properly and kept that way."
       lede={erpLine.promise}
       intro={

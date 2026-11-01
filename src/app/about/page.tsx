@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import { PhotoBand } from "@/components/photo";
 import { CloseBand } from "@/components/service-line-page";
 import { TimeZones } from "@/components/time-zones";
 import { PageHeader, Section } from "@/components/ui";
+import { photos } from "@/content/photos";
 import { site } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -37,6 +39,7 @@ export default function AboutPage() {
         title="A consultancy built where two disciplines meet."
         lede={`${site.name} brings Oracle ERP expertise and AI engineering into one team, so the system your business runs on and the intelligence built on top of it are designed together.`}
       />
+      <PhotoBand photo={photos.delhi} />
 
       <Section>
         <div className="grid gap-10 lg:grid-cols-12">

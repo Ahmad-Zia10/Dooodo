@@ -5,7 +5,8 @@ Recorded from the built site (2026-10-09). Direction: a modernist transit-diagra
 ## Principles
 
 - **The diagram is the identity.** Lines, stations, bullets and interchanges carry meaning, so use them where they inform (service lists, process steps, the legend) and never as decoration.
-- **Restrained ground, committed lines.** Neutral paper and white plates; colour appears only as line colour.
+- **Restrained ground, committed lines.** Neutral paper and white plates; colour appears only as line colour and in photographs.
+- **Diagrams explain, photographs ground.** Diagrams carry the argument; photos show the real-world places the work touches.
 - **Type does the work.** No eyebrows or kicker labels, no gradient text, and no icon-tile card grids. Headings stand alone.
 - **Honest content.** Never fabricate clients, logos, testimonials or metrics (see PRODUCT.md).
 
@@ -54,6 +55,7 @@ Archivo variable font (weight and width axes), self-hosted via `next/font`.
 - **Route planner** (`RoutePlanner`): visitors pick a starting problem and see a route: coloured legs by line, interchange capsules, "change here" notes and an "Arrive" terminus with the metric. Its call to action links to `/contact?route=<id>`, which prefills the form. Content lives in `src/content/routes.ts`.
 - **One-network argument** (`OneNetworkArgument`): a side-by-side diagram contrasting two vendors with a hand-over gap against one shared track.
 - **Departure board** (`DepartureBoard`): engagement models on a dark board with amber names that split-flap into place once when scrolled into view. Board type is data, so uppercase tracking is allowed here.
+- **Photo** (`Photo`, `PhotoBand`): stock photography of places and work (finance desks, server rooms, warehouses, the Delhi NCR skyline), never people presented as staff or clients. Each photo carries a line-colour rail across its top edge and, where useful, a white station-sign caption plate with route bullets. Sources live in `src/content/photos.ts` (hotlinked from Unsplash; swap for your own files in `/public` when you have them).
 - **Owner's note** (`NoteOnBeingNew`): a large-type letter that addresses being a new company directly.
 
 ## Layout and spacing
