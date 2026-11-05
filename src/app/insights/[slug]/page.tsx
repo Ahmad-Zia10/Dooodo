@@ -65,7 +65,7 @@ export default async function ArticlePage({ params }: PageProps<"/insights/[slug
         <Container className="py-16 sm:py-20">
           <div className="prose-body mx-auto max-w-[760px] text-[1.08rem]">
             {a.body.map((b, i) => (
-              <section key={i} className="mt-10 first:mt-0">
+              <section key={i} className={`${b.heading ? "mt-10" : "mt-4"} first:mt-0`}>
                 {b.heading && <h2 className="h-sub mb-4 text-[1.45rem] text-ink">{b.heading}</h2>}
                 {b.paragraphs?.map((p) => (
                   <p key={p} className="mt-4 first:mt-0">

@@ -31,6 +31,8 @@ export const nav = [
   { href: "/services/ai", label: "AI" },
   { href: "/services/oracle-erp", label: "Oracle ERP" },
   { href: "/industries", label: "Industries" },
+  { href: "/examples", label: "Examples" },
+  { href: "/insights", label: "Insights" },
   { href: "/approach", label: "Approach" },
   { href: "/about", label: "About" },
   { href: "/careers", label: "Careers" },

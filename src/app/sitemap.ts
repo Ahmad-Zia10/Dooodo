@@ -1,4 +1,6 @@
 import type { MetadataRoute } from "next";
+import { examples } from "@/content/examples";
+import { articles } from "@/content/insights";
 import { site } from "@/content/site";
 
 const routes = [
@@ -8,6 +10,10 @@ const routes = [
   "/services/consulting",
   "/services/app-development",
   "/industries",
+  "/examples",
+  ...examples.map((e) => `/examples/${e.slug}`),
+  "/insights",
+  ...articles.map((a) => `/insights/${a.slug}`),
   "/approach",
   "/about",
   "/careers",

@@ -7,6 +7,8 @@ import { Wordmark } from "./wordmark";
 
 const company = [
   { href: "/industries", label: "Industries" },
+  { href: "/examples", label: "Example engagements" },
+  { href: "/insights", label: "Insights" },
   { href: "/approach", label: "Approach" },
   { href: "/about", label: "About" },
   { href: "/careers", label: "Careers" },

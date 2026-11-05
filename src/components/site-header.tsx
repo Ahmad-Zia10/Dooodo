@@ -32,7 +32,7 @@ export function SiteHeader() {
           <Wordmark />
         </Link>
 
-        <nav aria-label="Primary" className="hidden lg:block">
+        <nav aria-label="Primary" className="hidden xl:block">
           <ul className="flex items-center gap-1">
             {nav.map((item) => (
               <li key={item.href}>
@@ -57,7 +57,7 @@ export function SiteHeader() {
           </Link>
           <button
             type="button"
-            className="inline-grid size-11 place-items-center rounded-full border border-rule lg:hidden"
+            className="inline-grid size-11 place-items-center rounded-full border border-rule xl:hidden"
             aria-expanded={open}
             aria-controls="mobile-nav"
             onClick={() => setOpen((v) => !v)}
@@ -80,7 +80,7 @@ export function SiteHeader() {
       <div
         id="mobile-nav"
         hidden={!open}
-        className="fixed inset-x-0 bottom-0 top-[72px] overflow-y-auto border-t border-rule bg-surface lg:hidden"
+        className="fixed inset-x-0 bottom-0 top-[72px] overflow-y-auto border-t border-rule bg-surface xl:hidden"
       >
         <nav aria-label="Mobile" className="px-4 py-6 sm:px-6">
           <ul className="divide-y divide-rule border-y border-rule">

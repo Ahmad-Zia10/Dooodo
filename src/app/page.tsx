@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArticleCard, ExampleCard } from "@/components/cards";
 import { DepartureBoard } from "@/components/departure-board";
 import { LineStatus, NoteOnBeingNew, OneNetworkArgument } from "@/components/home-sections";
 import { LineBullet } from "@/components/line-bullet";
@@ -10,7 +11,9 @@ import { CompactNetwork } from "@/components/strip-map";
 import { TimeZones } from "@/components/time-zones";
 import { ButtonLink, Container, Section, TextLink } from "@/components/ui";
 import { principles } from "@/content/approach";
+import { exampleNotice, examples } from "@/content/examples";
 import { industries } from "@/content/industries";
+import { articles } from "@/content/insights";
 import { industryPhotos, photos } from "@/content/photos";
 import { aiLine, erpLine, interchanges, type Line } from "@/content/services";
 import type { Photo as PhotoData } from "@/content/photos";
@@ -107,8 +110,29 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* Ways to work */}
+      {/* Example engagements */}
       <Section tone="surface" className="border-y border-rule">
+        <div className="grid gap-6 lg:grid-cols-12 lg:items-end">
+          <h2 className="h-section lg:col-span-6">What a project with us looks like.</h2>
+          <div className="lg:col-span-5 lg:col-start-8">
+            <p className="lede">Worked examples, stage by stage: the situation, the route, and how we would measure it.</p>
+            <p className="mt-4 text-[0.9rem] leading-relaxed text-ink-3">{exampleNotice}</p>
+          </div>
+        </div>
+        <ul className="mt-14 grid gap-x-12 gap-y-16 md:grid-cols-2">
+          {examples.slice(0, 2).map((ex) => (
+            <li key={ex.slug}>
+              <ExampleCard ex={ex} />
+            </li>
+          ))}
+        </ul>
+        <div className="mt-12">
+          <TextLink href="/examples">All {examples.length} example engagements</TextLink>
+        </div>
+      </Section>
+
+      {/* Ways to work */}
+      <Section>
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <h2 className="h-section">Start small. Expand when it&rsquo;s earned.</h2>
@@ -127,7 +151,7 @@ export default function Home() {
       </Section>
 
       {/* Principles */}
-      <Section>
+      <Section tone="surface" className="border-y border-rule">
         <div className="grid gap-12 lg:grid-cols-12">
           <h2 className="h-section lg:col-span-4">Built for production, not for the demo.</h2>
           <dl className="grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:col-span-8">
@@ -142,12 +166,12 @@ export default function Home() {
       </Section>
 
       {/* Owner's note */}
-      <Section tone="surface" className="border-y border-rule">
+      <Section>
         <NoteOnBeingNew />
       </Section>
 
       {/* Global delivery */}
-      <Section>
+      <Section tone="surface" className="border-y border-rule">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <h2 className="h-section">Based in Delhi NCR. Working in your hours.</h2>
@@ -160,6 +184,21 @@ export default function Home() {
             <TimeZones />
           </div>
         </div>
+      </Section>
+
+      {/* Insights */}
+      <Section className="border-t border-rule">
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <h2 className="h-section max-w-[18ch]">Notes from where ERP meets AI.</h2>
+          <TextLink href="/insights">All insights</TextLink>
+        </div>
+        <ul className="mt-12 grid gap-x-12 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
+          {articles.slice(0, 3).map((a) => (
+            <li key={a.slug}>
+              <ArticleCard a={a} />
+            </li>
+          ))}
+        </ul>
       </Section>
 
       {/* Industries */}

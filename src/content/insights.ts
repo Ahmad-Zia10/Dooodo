@@ -116,6 +116,8 @@ export const articles: Article[] = [
           "Propose: draft the posting or the match, and a person approves it.",
           "Act within limits: post automatically below a value or confidence threshold, with everything logged.",
         ],
+      },
+      {
         paragraphs: [
           "Start at the first or second level. Autonomy should be earned with measured accuracy, one threshold at a time.",
         ],
